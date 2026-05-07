@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>InkSense — Child UI</title>
+<meta name="viewport" content="width=1600" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #f0eee9; font-family: 'Lexend', system-ui, sans-serif; }
+  *, *::before, *::after { box-sizing: border-box; }
+  /* keyboard hint card on the canvas */
+  .ink-intro {
+    font-family: 'Lexend', system-ui, sans-serif;
+    color: #3a2a1c;
+  }
+  .ink-intro h1 {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin: 0 0 6px;
+  }
+  .ink-intro p { margin: 0; line-height: 1.5; font-size: 14px; color: #5a4a3a; }
+  .ink-intro .row { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .ink-intro kbd {
+    background: #fff; border-radius: 6px; padding: 2px 8px;
+    font: 600 12px 'Lexend', sans-serif;
+    box-shadow: 0 2px 0 #d0c4a8;
+    margin-right: 6px;
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="inksense.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection
+        id="intro"
+        title="InkSense"
+        subtitle="AI writing buddy for children with dyslexia · 3 directions · click ⤢ to focus, then draw, press S/R/T/Q or click the buttons"
+      >
+        <DCArtboard id="sunset" label="A · Sunset Garden — peach + sage, owl mascot 'Pip'" width={1280} height={800}>
+          <InkSense theme={themeSunset} />
+        </DCArtboard>
+        <DCArtboard id="tropical" label="B · Tropical Sketch — hibiscus + leaf-green, tiger 'Rimba'" width={1280} height={800}>
+          <InkSense theme={themeTropical} />
+        </DCArtboard>
+        <DCArtboard id="ocean" label="C · Calm Ocean — teal + sand, turtle 'Luna' (Atkinson Hyperlegible)" width={1280} height={800}>
+          <InkSense theme={themeOcean} />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection
+        id="notes"
+        title="Notes"
+        subtitle="How to read this mockup"
+      >
+        <DCArtboard id="readme" label="README" width={520} height={420}>
+          <div className="ink-intro" style={{ padding: 28, height: '100%', background: '#fef8eb', borderRadius: 0 }}>
+            <h1>How to try it</h1>
+            <p>Each artboard is a working prototype — open one fullscreen with the ⤢ button, then:</p>
+            <div className="row">
+              <div><kbd>S</kbd>Save & get feedback</div>
+              <div><kbd>R</kbd>Reset canvas</div>
+            </div>
+            <div className="row" style={{ marginTop: 6 }}>
+              <div><kbd>T</kbd>Talk to tutor</div>
+              <div><kbd>Q</kbd>Quit (animates only)</div>
+            </div>
+            <p style={{ marginTop: 18 }}>Or click the big buttons. Draw on the canvas with mouse or stylus — the cream paper, ruled guide lines, and dyslexia‑friendly type are part of the spec.</p>
+            <h1 style={{ marginTop: 22, fontSize: 18 }}>Three directions</h1>
+            <p><strong>A</strong> warm and gentle (recommended default for 7‑8 yr olds).<br/>
+            <strong>B</strong> brightest and most energetic — great for kids who like big personality.<br/>
+            <strong>C</strong> calmest and lowest visual noise; uses Atkinson Hyperlegible — best for higher sensory sensitivity.</p>
+          </div>
+        </DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
